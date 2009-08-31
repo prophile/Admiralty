@@ -74,7 +74,8 @@ namespace Admiralty
 	{
 		ADMIRAL_TYPE_DEFENSIVE,
 		ADMIRAL_TYPE_OFFENSIVE,
-		ADMIRAL_TYPE_BESERK
+		ADMIRAL_TYPE_BESERK,
+		ADMIRAL_TYPE_ASSASSIN
 	};
 	
 	class Admiral
@@ -100,6 +101,7 @@ namespace Admiralty
 		void SetResourceCount ( unsigned int resources ) { _resources = resources; }
 		void DeclareEntity ( Entity ent );
 		void AddAlly ( unsigned int ally );
+		void Reconfigure ( AdmiralType t ) { _type = t; }
 		void DeclareClass ( ShipClass aClass );
 		void RemoveEntity ( unsigned int id );
 		void Recalculate ();

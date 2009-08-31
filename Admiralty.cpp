@@ -353,6 +353,13 @@ namespace Admiralty
 				_enemyStrengthGrid.ApplyWeight(2.0f);
 				_masterGrid.ApplyWeight(3.0f);
 				break;
+			case ADMIRAL_TYPE_ASSASSIN:
+				_friendlyImportanceGrid.ApplyWeight(0.2f);
+				_friendlyStrengthGrid.ApplyWeight(-0.5f);
+				_enemyImportanceGrid.ApplyWeight(5.0f);
+				_enemyStrengthGrid.ApplyWeight(-0.4f);
+				_masterGrid.ApplyWeight(-2.0f);
+				break;
 		}
 		// combine into one
 		DEBUG("combining influence grids");
