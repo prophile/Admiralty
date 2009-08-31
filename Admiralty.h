@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <set>
+#include <string>
 
 namespace Admiralty
 {
@@ -22,7 +23,7 @@ namespace Admiralty
 		unsigned int id; // class id
 		unsigned int specialist; // what this is a specialist in dealing with
 		unsigned int cost; // resource cost
-		float strength; // in scale 0..1
+		float buildRatio;
 	};
 	
 	enum ActionType
@@ -45,8 +46,8 @@ namespace Admiralty
 	namespace Internal
 	{
 	
-		const static int INFLUENCE_GRID_SIZE = 32;
-		const static int INFLUENCE_GRID_SAMPLES = 12;
+		const static int INFLUENCE_GRID_SIZE = 16;
+		const static int INFLUENCE_GRID_SAMPLES = (INFLUENCE_GRID_SIZE * 2);
 	
 		class InfluenceGrid
 		{
@@ -63,6 +64,8 @@ namespace Admiralty
 			void ApplyWeight ( float weight );
 			void AddGrid ( const InfluenceGrid& grid );
 			void Select ( float& x, float& y );
+			
+			void Dump ( const std::string& path );
 		};
 	
 	};
@@ -88,6 +91,8 @@ namespace Admiralty
 		Internal::InfluenceGrid _friendlyImportanceGrid, _friendlyStrengthGrid;
 		Internal::InfluenceGrid _enemyImportanceGrid, _enemyStrengthGrid;
 		Internal::InfluenceGrid _masterGrid;
+		float _totalBuildRatio;
+		void PopulateShipBuildingActions ( bool aggressive );
 		void PopulateActions ( float totalEnemyStrength, float totalFriendlyStrength );
 		bool IsAlly ( unsigned int side );
 	public:
