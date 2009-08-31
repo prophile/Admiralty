@@ -171,6 +171,22 @@ namespace Admiralty
 		} while(madeChanges);
 	}
 	
+	AdmiralType Admiral::ActiveType ( float totalEnemyStrength, float totalFriendlyStrength )
+	{
+		if (_type == ADMIRAL_TYPE_GENERIC)
+		{
+			float enemyRatio = totalEnemyStrength / totalFriendlyStrength;
+			if (enemyRatio < 1.1f) return ADMIRAL_TYPE_DEFENSIVE;
+			else if (enemyRatio < 1.5f) return ADMIRAL_TYPE_OFFENSIVE;
+			else if (enemyRatio < 1.7f) return ADMIRAL_TYPE_BESERK;
+			else return ADMIRAL_TYPE_OFFENSIVE;
+		}
+		else
+		{
+			return _type;
+		}
+	}
+	
 	void Admiral::PopulateActions ( float totalEnemyStrength, float totalFriendlyStrength )
 	{
 		DEBUG("populating actions");
@@ -329,8 +345,9 @@ namespace Admiralty
 		_enemyStrengthGrid.Dump("/tmp/strength-enemy.grid");
 		_masterGrid.Dump("/tmp/forecast-enemy.grid");
 		DEBUG("weighting influence grids");
+		AdmiralType type = ActiveType(totalEnemyStrength, totalFriendlyStrength);
 		// apply weights
-		switch (_type)
+		switch (type)
 		{
 			case ADMIRAL_TYPE_DEFENSIVE:
 				_friendlyImportanceGrid.ApplyWeight(3.0f);

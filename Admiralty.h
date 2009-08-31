@@ -46,8 +46,8 @@ namespace Admiralty
 	namespace Internal
 	{
 	
-		const static int INFLUENCE_GRID_SIZE = 16;
-		const static int INFLUENCE_GRID_SAMPLES = (INFLUENCE_GRID_SIZE * 2);
+		const static int INFLUENCE_GRID_SIZE = 24;
+		const static int INFLUENCE_GRID_SAMPLES = (INFLUENCE_GRID_SIZE * 2) - (INFLUENCE_GRID_SIZE / 2);
 	
 		class InfluenceGrid
 		{
@@ -75,7 +75,8 @@ namespace Admiralty
 		ADMIRAL_TYPE_DEFENSIVE,
 		ADMIRAL_TYPE_OFFENSIVE,
 		ADMIRAL_TYPE_BESERK,
-		ADMIRAL_TYPE_ASSASSIN
+		ADMIRAL_TYPE_ASSASSIN,
+		ADMIRAL_TYPE_GENERIC
 	};
 	
 	class Admiral
@@ -96,6 +97,7 @@ namespace Admiralty
 		void PopulateShipBuildingActions ( bool aggressive );
 		void PopulateActions ( float totalEnemyStrength, float totalFriendlyStrength );
 		bool IsAlly ( unsigned int side );
+		AdmiralType ActiveType ( float totalEnemyStrength, float totalFriendlyStrength );
 	public:
 		Admiral ( float left, float right, float bottom, float top, unsigned int allegiance, AdmiralType t );
 		void SetResourceCount ( unsigned int resources ) { _resources = resources; }
